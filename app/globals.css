@@ -1,0 +1,26 @@
+:root { --navy:#0b1f3a; --blue:#1e6bff; --bg:#f3f5f8; --card:#fff; --text:#0b1f3a; --muted:#5b6b80; --line:#dde3ec; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#10141b; --card:#171d27; --text:#e8edf5; --muted:#93a1b5; --line:#263041; --navy:#06101f; }
+}
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font-family: var(--font), system-ui, sans-serif; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+header.top { background:var(--navy); color:#fff; }
+.wrap { max-width:1120px; margin:0 auto; padding:0 20px; }
+.bar { display:flex; align-items:center; justify-content:space-between; height:64px; }
+.logo { font-weight:800; font-size:1.25rem; } .logo b { color:var(--blue); }
+.btn { background:var(--blue); color:#fff; border:0; border-radius:8px; padding:10px 16px; font-weight:700; cursor:pointer; font-size:1rem; }
+.btn:disabled { opacity:.5; cursor:not-allowed; }
+.hero { background:var(--navy); color:#fff; padding:56px 0 64px; }
+.hero h1 { font-size:clamp(2rem,5vw,3.25rem); margin:0 0 12px; max-width:16ch; line-height:1.1; }
+.hero p { color:#b9c7dd; max-width:52ch; margin:0 0 20px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:16px; padding:32px 0; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; display:flex; flex-direction:column; gap:8px; }
+.thumb { aspect-ratio:4/3; border-radius:8px; background:linear-gradient(135deg,var(--navy),var(--blue)); display:grid; place-items:center; color:#fff; font-weight:800; font-size:1.5rem; }
+.muted { color:var(--muted); font-size:.9rem; }
+.price { font-weight:800; font-size:1.2rem; }
+.empty, .msg { padding:40px 0; color:var(--muted); }
+input, textarea { width:100%; padding:10px; border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--text); font:inherit; }
+label { display:grid; gap:4px; font-weight:600; margin-bottom:12px; }
+.row { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--line); gap:12px; }

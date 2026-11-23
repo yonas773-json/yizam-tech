@@ -1,33 +1,20 @@
 "use client";
+export type CartLine = { productId: string; name: string; price: number; quantity: number };
 
-import { useState } from "react";
+export function readCart(): CartLine[] {
+  try { return JSON.parse(localStorage.getItem("yizam-cart") ?? "[]"); } catch { return []; }
+}
+export function writeCart(c: CartLine[]) {
+  try { localStorage.setItem("yizam-cart", JSON.stringify(c)); } catch {}
+}
 
-export default function AddToCart({ productId, name }: { productId: string; name: string }) {
-  const [qty, setQty] = useState(1);
-  const [msg, setMsg] = useState("");
-
+export default function AddToCart({ productId, name, price, disabled }: { productId: string; name: string; price: number; disabled: boolean }) {
   function add() {
-    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    const existing = cart.find((i: any) => i.productId === productId);
-    if (existing) existing.quantity += qty;
-    else cart.push({ productId, name, quantity: qty });
-    localStorage.setItem("cart", JSON.stringify(cart));
-    setMsg(`Added ${qty} × ${name}`);
-    setTimeout(() => setMsg(""), 2000);
+    const cart = readCart();
+    const line = cart.find((l) => l.productId === productId);
+    if (line) line.quantity += 1; else cart.push({ productId, name, price, quantity: 1 });
+    writeCart(cart);
+    alert(`${name} added to cart`);
   }
-
-  return (
-    <div style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 8 }}>
-      <input
-        type="number"
-        min={1}
-        max={20}
-        value={qty}
-        onChange={(e) => setQty(Number(e.target.value))}
-        style={{ width: 60 }}
-      />
-      <button onClick={add}>Add to cart</button>
-      {msg && <span style={{ color: "green", fontSize: 14 }}>{msg}</span>}
-    </div>
-  );
+  return <button className="btn" disabled={disabled} onClick={add}>{disabled ? "Out of stock" : "Add to cart"}</button>;
 }
